@@ -15,10 +15,10 @@ while(1):
 	GPIO.output(16, GPIO.LOW)
 
 	# Wait a bit
-	sleep(100)
+	sleep(1000)
 
 	# Turn Off
 	GPIO.output(16, GPIO.HIGH)
 
 	# Wait a bit
-	sleep(100)
+	sleep(1000)
