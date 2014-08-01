@@ -8,3 +8,4 @@ RUN pip install rpi.gpio
 ADD . /app
 
 RUN echo python app/hello.py > /start
+RUN chmod +x /start
