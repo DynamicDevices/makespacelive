@@ -7,6 +7,8 @@ from time import sleep
 # connector pin number, and the LED GPIO isn't on the connector
 GPIO.setmode(GPIO.BCM)
 
+GPIO.cleanup()
+
 # set up GPIO output channel
 GPIO.setup(16, GPIO.OUT)
 
