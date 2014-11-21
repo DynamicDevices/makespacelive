@@ -1,4 +1,4 @@
-FROM resin/rpi-buildstep-armv6hf:latest
+FROM resin/rpi-raspbian:wheezy
 
 # Install Python.
 RUN apt-get update
