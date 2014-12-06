@@ -1,8 +1,7 @@
 FROM resin/rpi-raspbian:wheezy
 
 # Install Python.
-RUN apt-get update
-RUN apt-get install -y python
+RUN apt-get update && apt-get install -y python
 
 ADD . /app
 
