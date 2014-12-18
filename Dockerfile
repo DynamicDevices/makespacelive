@@ -5,5 +5,4 @@ RUN apt-get update && apt-get install -y python
 
 ADD . /app
 
-RUN echo python app/hello.py > /start
-RUN chmod +x /start
+CMD ["python", "/app/hello.py"]
