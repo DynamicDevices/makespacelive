@@ -4,7 +4,7 @@ Currently it is targeting a raspberry pi and builds upon a debian wheezy base im
 change this to target any of the other targeted platforms supported by resin.io, all that you need to do is 
 change the line:
 ```
-FROM resin/rpi-raspbian:wheezy-2015-01-15
+FROM resin/rpi-raspbian:jessie
 ```
 to any of the base OS images from the [resin.io docker hub](https://registry.hub.docker.com/repos/resin/).
 
