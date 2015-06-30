@@ -5,6 +5,8 @@ RUN apt-get update \
 	# Remove package lists to free up space
 	&& rm -rf /var/lib/apt/lists/*
 
-ADD . /app
+# copy current directory into /app
+COPY . /app
 
+# run python script when container lands on device
 CMD ["python", "/app/hello.py"]
