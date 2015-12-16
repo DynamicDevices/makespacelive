@@ -1,4 +1,8 @@
-FROM resin/rpi-raspbian:jessie
+FROM resin/raspberrypi-python
+
+# Enable systemd
+ENV INITSYSTEM on
+
 # Install Python.
 RUN apt-get update \
 	&& apt-get install -y python \
