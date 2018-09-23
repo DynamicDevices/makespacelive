@@ -3,9 +3,10 @@ FROM resin/raspberrypi-python
 # Enable systemd
 ENV INITSYSTEM on
 
-# Install Python.
+# Install Python, GStreamer
 RUN apt-get update \
 	&& apt-get install -y python \
+        && apt-get install -y gstreamer1.0-tools \
 	# Remove package lists to free up space
 	&& rm -rf /var/lib/apt/lists/*
 
