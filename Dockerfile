@@ -14,5 +14,5 @@ RUN apt-get update \
 # copy current directory into /app
 COPY . /app
 
-# run python script when container lands on device
-CMD ["python", "/app/hello.py"]
+# run streaming script when container lands on device
+CMD ["/app/stream.sh", "ustream"]
