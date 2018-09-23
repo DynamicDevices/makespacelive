@@ -7,6 +7,7 @@ ENV INITSYSTEM on
 RUN apt-get update \
 	&& apt-get install -y python \
         && apt-get install -y gstreamer1.0-tools gstreamer1.0-plugins-good \
+        && apt-get install -y gst-omx-1.0 \
 	# Remove package lists to free up space
 	&& rm -rf /var/lib/apt/lists/*
 
