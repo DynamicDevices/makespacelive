@@ -16,10 +16,12 @@
     ################### UStream Settings ###################
     # RTMP URL from your UStream Account : See www.ustream.tv -> Channel -> Remote
 #    rtmpurl='rtmp://1.17758740.fme.ustream.tv/ustreamVideo/17758740'
-    rtmpurl='rtmp://eu-london.restream.io/live'
+#    rtmpurl='rtmp://eu-london.restream.io/live'
+    rtmpurl=$RTMPURL
     # This is your Stream Key : See www.ustream.tv -> Channel -> Remote
 #    streamkey='uwYvFgPtmwxbqS7EwLEWYS7HRHrYtUur'
-    streamkey='re_922795_faab96b091e28b98cb33'
+#    streamkey='re_922795_faab96b091e28b98cb33'
+    streamkey=$STREAMKEY
     ################### Akamai Settings ###################
     akamai_server='INSERT_YOUR_AKAMAI_SERVER_NAME_HERE'
     akamai_user='INSERT_YOUR_AKAMAI_USER_NAME_HERE'
@@ -48,7 +50,7 @@
     ########################################################
 
     # This will detect gstreamer-1.0 over gstreamer-0.10
-    gstlaunch=`which gst-launch-1.0bcvbvb`
+    gstlaunch=`which gst-launch-1.0`
     if [ X$gstlaunch != X ] ; then
       VIDEOCONVERT=videoconvert
       VIDEO='video/x-raw, format=(string)BGRA, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive'
