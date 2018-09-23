@@ -88,12 +88,15 @@
             audioencoder="faac bitrate=$abitrate"
             location=$serverurl'/x/'$auth'?videoKeyframeFrequency=1&totalDatarate='$datarate' app='$youtube_app' flashVer='$flashver' swfUrl='$serverurl
             ;;
-      ustream)
-            videoencoder="x264enc bitrate=$vbitrate bframes=0"
+  ustream)
+#            videoencoder="x264enc bitrate=$vbitrate bframes=0 key-int-max=2"
+            videoencoder="omxh264enc"
             #ENCAUDIOFORMAT='audio/mpeg'
-            ENCAUDIOFORMAT=mpegaudioparse
+            #ENCAUDIOFORMAT=mpegaudioparse
+            ENCAUDIOFORMAT='aacparse ! audio/mpeg,mpegversion=4,stream-format=raw'
             abitrate=`echo "$abitrate / 1000" | bc`
-            audioencoder="lamemp3enc bitrate=$abitrate ! mpegaudioparse"
+#            audioencoder="lamemp3enc bitrate=$abitrate ! mpegaudioparse"
+            audioencoder="voaacenc bitrate=$abitrate"
             location="$rtmpurl/$streamkey live=1 flashver=$flashver"
             ;;
       aka | akamai)
@@ -111,7 +114,8 @@
     VIDEOFORMAT=$VIDEO', framerate='$framerate', width='$width', height='$height
     AUDIOFORMAT=$AUDIO', '$afid' endianness=(int)1234, signed=(boolean)true, width=(int)16, depth=(int)16, rate=(int)'$audiorate', channels=(int)'$channels
     TIMEOLPARMS='halignment=left valignment=bottom text="Stream time:" shaded-background=true'
-    VIDEOSRC="videotestsrc pattern=0 is-live=true ! timeoverlay $TIMEOLPARMS"
+#    VIDEOSRC="videotestsrc pattern=0 is-live=true ! timeoverlay $TIMEOLPARMS"
+    VIDEOSRC="videotestsrc pattern=0 is-live=true"
     AUDIOSRC="audiotestsrc is-live=true"
 
     # ctrsocket must match system socket in running Snowmix
