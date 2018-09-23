@@ -31,8 +31,8 @@
     ###################### Settings ########################
     width=1280
     height=720
-    audiorate=44100
-    channels=2
+    audiorate=16000
+    channels=1
     framerate='25/1'
     vbitrate=4000
     abitrate=128000
@@ -115,8 +115,10 @@
     AUDIOFORMAT=$AUDIO', '$afid' endianness=(int)1234, signed=(boolean)true, width=(int)16, depth=(int)16, rate=(int)'$audiorate', channels=(int)'$channels
     TIMEOLPARMS='halignment=left valignment=bottom text="Stream time:" shaded-background=true'
 #    VIDEOSRC="videotestsrc pattern=0 is-live=true ! timeoverlay $TIMEOLPARMS"
-    VIDEOSRC="videotestsrc pattern=0 is-live=true"
-    AUDIOSRC="audiotestsrc is-live=true"
+#    VIDEOSRC="videotestsrc pattern=0 is-live=true"
+    VIDEOSRC="v4l2src device=/dev/video0 ! videoconvert"
+#    AUDIOSRC="audiotestsrc is-live=true"
+    AUDIOSRC="alsasrc device=hw:1"
 
     # ctrsocket must match system socket in running Snowmix
 #    ctrsocket=/tmp/live-mixer
