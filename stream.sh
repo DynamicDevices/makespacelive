@@ -113,12 +113,12 @@
     AUDIOSRC="audiotestsrc is-live=true"
 
     # ctrsocket must match system socket in running Snowmix
-    ctrsocket=/tmp/live-mixer
+#    ctrsocket=/tmp/live-mixer
     # audiosink must match audio sink in running SNowmix
-    audiosink=1
-    MIXERFORMAT=$VIDEO', bpp=(int)32, depth=(int)32, endianness=(int)4321, format=('$vfid')BGRA, red_mask=(int)65280, green_mask=(int)16711680, blue_mask=(int)-16777216, width=(int)'$width', height=(int)'$height', framerate=(fraction)'$framerate', pixel-aspect-ratio=(fraction)1/1, interlaced=(boolean)false'
-    VIDEOSRC='shmsrc socket-path='$ctrsocket' do-timestamp=true is-live=true'
-    AUDIOSRC="fdsrc fd=0"
+#    audiosink=1
+#    MIXERFORMAT=$VIDEO', bpp=(int)32, depth=(int)32, endianness=(int)4321, format=('$vfid')BGRA, red_mask=(int)65280, green_mask=(int)16711680, blue_mask=(int)-16777216, width=(int)'$width', height=(int)'$height', framerate=(fraction)'$framerate', pixel-aspect-ratio=(fraction)1/1, interlaced=(boolean)false'
+#    VIDEOSRC='shmsrc socket-path='$ctrsocket' do-timestamp=true is-live=true'
+#    AUDIOSRC="fdsrc fd=0"
 
     echo $gstlaunch -v $GST_DEBUG                         \
             $AUDIOSRC                          !\
