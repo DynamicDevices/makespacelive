@@ -12,8 +12,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Setup gst-rpicamsrc
-RUN apt-get install autoconf automake libtool pkg-config libgstreamer1.0-dev \
-        libgstreamer-plugins-base1.0-dev 
+RUN apt-get install -y autoconf automake libtool pkg-config libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev 
 
 RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
 
