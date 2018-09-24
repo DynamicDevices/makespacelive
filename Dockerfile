@@ -13,7 +13,7 @@ RUN apt-get update \
 
 # Setup gst-rpicamsrc
 RUN apt-get install autoconf automake libtool pkg-config libgstreamer1.0-dev \
-        libgstreamer-plugins-base1.0-dev libraspberrypi-dev
+        libgstreamer-plugins-base1.0-dev 
 
 RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
 
