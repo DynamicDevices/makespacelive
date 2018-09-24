@@ -11,6 +11,14 @@ RUN apt-get update \
 	# Remove package lists to free up space
 	&& rm -rf /var/lib/apt/lists/*
 
+# Setup gst-rpicamsrc
+RUN apt-get install autoconf automake libtool pkg-config libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev libraspberrypi-dev
+
+RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
+
+RUN cd gst-rpicamsrc && ./autogen.sh && make && make install
+
 # copy current directory into /app
 COPY . /app
 
