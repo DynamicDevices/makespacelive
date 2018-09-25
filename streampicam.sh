@@ -117,7 +117,7 @@
 #    VIDEOSRC="videotestsrc pattern=0 is-live=true ! timeoverlay $TIMEOLPARMS"
 #    VIDEOSRC="videotestsrc pattern=0 is-live=true"
 #    VIDEOSRC="v4l2src device=/dev/video0 ! videoconvert"
-    VIDEOSRC="rpicamsrc rotation=180"
+    VIDEOSRC="rpicamsrc vflip=true hflip=true"
     AUDIOSRC="audiotestsrc is-live=true"
 #    AUDIOSRC="alsasrc device=hw:1"
 
