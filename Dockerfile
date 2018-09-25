@@ -20,4 +20,4 @@ RUN cd gst-rpicamsrc && ./autogen.sh && make && make install
 COPY . /app
 
 # run streaming script when container lands on device
-CMD ["/app/stream.sh", "ustream"]
+CMD ["/app/streampicam.sh", "ustream"]
