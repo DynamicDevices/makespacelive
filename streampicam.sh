@@ -160,6 +160,7 @@
             mux. $VIDEOSRC                               !\
             'video/x-h264,width=1280,height=720,framerate=25/1' !\
             'h264parse' !\
+            queue !\
             flvmux streamable=true name=mux         !\
             queue                                   !\
             rtmpsink location="$location"
