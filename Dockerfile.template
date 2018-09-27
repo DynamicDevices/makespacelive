@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:buster
 
 ENV INITSYSTEM on
 
