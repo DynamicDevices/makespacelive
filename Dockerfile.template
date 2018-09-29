@@ -33,6 +33,8 @@ COPY scripts/start.sh .
 COPY stream.sh .
 COPY streampicam.sh .
 COPY stream.py .
+COPY streamwebcam.sh .
+COPY streamwebcam-c920.sh .
 
 # Run wifi connect
 CMD ["bash", "start.sh"]
