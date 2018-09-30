@@ -38,7 +38,7 @@ def set_saturation(pipeline):
 STREAM_URL='rtmp://10.0.31.212'
 STREAM_KEY=''
 
-if len(sys.argv) == 1:
+if len(sys.argv) == 2:
     STREAM_URL += "/" + sys.argv[1]
 else:
     STREAM_URL += "/live"
