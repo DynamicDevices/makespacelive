@@ -31,12 +31,17 @@ def set_saturation(pipeline):
     return True
 
 # Alex Replayer stream
-#STREAM_URL='rtmp://eu-london.restream.io/live'
+#STREAM_URL='rtmp://eu-london.restream.io'
 #STREAM_KEY='re_929843_ff06cc0803dbf2b80d0d'
 
 # Matt box stream
-STREAM_URL='rtmp://10.0.31.212/' + sys.argv[1]
+STREAM_URL='rtmp://10.0.31.212'
 STREAM_KEY=''
+
+if len(sys.argv) == 1:
+    STREAM_URL += "/" + sys.argv[1]
+else:
+    STREAM_URL += "/live"
 
 AUDIO_SAMPLING_RATE=16000
 #AUDIO_SAMPLING_RATE=44100
