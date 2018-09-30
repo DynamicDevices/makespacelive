@@ -63,7 +63,7 @@ H264_ENCODER=''
 AUDIO_DEVICE=1
 AUDIO_BITRATE=128
 
-VIDEO_SOURCE="rpicamsrc keyframe-interval=2"
+VIDEO_SOURCE="rpicamsrc keyframe-interval=2 hflip=true vflip=true"
 #VIDEO_SOURCE="uvch264src initial-bitrate=5000000 average-bitrate=5000000 iframe-period=3000 device=/dev/video0 name=src auto-start=true"
 #VIDEO_SOURCE="uvch264src device=/dev/video0 auto-start=true"
 VIDEO_WIDTH=1280
