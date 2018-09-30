@@ -1,9 +1,19 @@
 #!/usr/bin/python3
 
+import os
+import subprocess
 import sys
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import GObject, Gst
+
+def exists(path):
+    """Test whether a path exists.  Returns False for broken symbolic links"""
+    try:
+        os.stat(path)
+    except OSError:
+        return False
+    return True
 
 def bus_call(bus, msg, *args):
     # print("BUSCALL", msg, msg.type, *args)
@@ -43,19 +53,39 @@ if len(sys.argv) == 2:
 else:
     STREAM_URL += "/live"
 
+HAS_AUDIO=0
 AUDIO_SAMPLING_RATE=16000
 #AUDIO_SAMPLING_RATE=44100
 
 # Set to empty if the v4l2src supports h.264 output, otherwise use h/w accelerated encoding
-#H264_ENCODER='omxh264enc !'
 H264_ENCODER=''
 
 AUDIO_DEVICE=1
 AUDIO_BITRATE=128
 
+VIDEO_SOURCE="rpicamsrc keyframe-interval=2"
+#VIDEO_SOURCE="uvch264src initial-bitrate=5000000 average-bitrate=5000000 iframe-period=3000 device=/dev/video0 name=src auto-start=true"
+#VIDEO_SOURCE="uvch264src device=/dev/video0 auto-start=true"
 VIDEO_WIDTH=1280
 VIDEO_HEIGHT=720
 VIDEO_FRAMERATE=30
+
+# Check if we have a v4l2src
+if exists('/dev/video0') :
+    print("Detected webcam")
+    VIDEO_SOURCE="v4l2src"
+    # Assume for now we have audio (!)
+    print('Assume webcam has audio')
+    HAS_AUDIO=1
+    # Check if the webcam outputs native h.264
+    result = subprocess.run(['v4l2-ctl','--list-formats'], stdout=subprocess.PIPE)
+    if "H264" not in str(result.stdout):
+      print('Webcam does not support h.264')
+      H264_ENCODER='omxh264enc !'
+    else:
+      print('Webcam supports h.264')
+else:
+    print("Defaulting to PiCam")
 
 if __name__ == "__main__":
     GObject.threads_init()
@@ -64,15 +94,16 @@ if __name__ == "__main__":
     Gst.init(None)
 
     audiostr = "alsasrc device=hw:" + str(AUDIO_DEVICE) + " ! audio/x-raw, format=(string)S16LE, endianness=(int)1234, signed=(boolean)true, width=(int)16, depth=(int)16, rate=(int)" + str(AUDIO_SAMPLING_RATE) + " ! queue ! voaacenc bitrate=" + str(AUDIO_BITRATE) + " ! aacparse ! audio/mpeg,mpegversion=4,stream-format=raw ! queue ! mux. "
-    videostr = "v4l2src ! " + H264_ENCODER + " video/x-h264,width=" +str(VIDEO_WIDTH) + ",height=" + str(VIDEO_HEIGHT) + ",framerate=" + str(VIDEO_FRAMERATE) + "/1 ! h264parse ! "
+    videostr = VIDEO_SOURCE + " ! " + H264_ENCODER + " video/x-h264,width=" +str(VIDEO_WIDTH) + ",height=" + str(VIDEO_HEIGHT) + ",framerate=" + str(VIDEO_FRAMERATE) + "/1 ! h264parse ! "
     muxstr = "flvmux streamable=true name=mux ! queue ! "
     sinkstr = "rtmpsink location='" + STREAM_URL + "/" + STREAM_KEY + " live=1 flashver=FME/3.0%20(compatible;%20FMSc%201.0)'"
 
-    # Video -> Restream.io
-#    pipelinestr = videostr + muxstr + sinkstr
-
-    # Audio + Video -> Restream.io
-    pipelinestr = audiostr + videostr + muxstr + sinkstr
+    if HAS_AUDIO:
+        # Audio + Video -> Restream.io
+        pipelinestr = audiostr + videostr + muxstr + sinkstr
+    else:
+        # Video -> Restream.io
+        pipelinestr = videostr + muxstr + sinkstr
 
     print("Pipeline stream:")
     print(pipelinestr)
@@ -108,5 +139,4 @@ if __name__ == "__main__":
 
     # All done - cleanup
     pipeline.set_state(Gst.State.NULL)
-
 
