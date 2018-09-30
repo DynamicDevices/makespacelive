@@ -24,4 +24,4 @@ else
 fi
 
 # Start your application here.
-./streampicam.sh ustream
+./stream.py $RESIN_DEVICE_NAME_AT_INIT

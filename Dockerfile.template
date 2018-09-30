@@ -31,11 +31,7 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
 RUN unzip ngrok-stable-linux-arm.zip
 
 COPY scripts/start.sh .
-COPY stream.sh .
-COPY streampicam.sh .
 COPY stream.py .
-COPY streamwebcam.sh .
-COPY streamwebcam-c920.sh .
 
 # Run wifi connect
 CMD ["bash", "start.sh"]
