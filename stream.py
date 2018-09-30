@@ -87,10 +87,10 @@ if exists('/dev/video0') :
 else:
     print("Defaulting to PiCam")
     HAS_AUDIO=0
+    H264_ENCODER='omxh264enc !'
     result = subprocess.run(['cat','/proc/asound/devices'], stdout=subprocess.PIPE)
     if "capture" not in str(result.stdout):
       print('No audio capture available')
-      H264_ENCODER='omxh264enc !'
     else:
       print('Audio capture available')
       HAS_AUDIO=1
