@@ -86,6 +86,18 @@ if exists('/dev/video0') :
       print('Webcam supports h.264')
 else:
     print("Defaulting to PiCam")
+    HAS_AUDIO=0
+    result = subprocess.run(['cat','/proc/asound/devices'], stdout=subprocess.PIPE)
+    if "capture" not in str(result.stdout):
+      print('No audio capture available')
+      H264_ENCODER='omxh264enc !'
+    else:
+      print('Audio capture available')
+      HAS_AUDIO=1
+      # Assume hardware device 1 (TODO: Work this out from result.stdout)
+      AUDIO_DEVICE=1
+      # Assume we can capture at 44100
+      AUDIO_SAMPLING_RATE=44100
 
 if __name__ == "__main__":
     GObject.threads_init()
@@ -139,4 +151,5 @@ if __name__ == "__main__":
 
     # All done - cleanup
     pipeline.set_state(Gst.State.NULL)
+
 
