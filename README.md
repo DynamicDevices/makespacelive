@@ -111,12 +111,12 @@ Then run the following APT command to install needed dependencies. NB. Check the
 
     apt-get update \
         && apt-get install -y dnsmasq wireless-tools dbus xterm \
-                          v4l-utils nano bc wget unzip netcat alsa-utils build-essential git usbutils openssh-server \
-			  python3 python3-gi \
-                          gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
-                          gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-alsa \
-                          autoconf automake libtool pkg-config \
-                          libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libraspberrypi-dev \
+                   v4l-utils nano bc wget unzip netcat alsa-utils build-essential git usbutils openssh-server \
+                   python3 python3-gi \
+                   gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
+                   gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-alsa \
+                   autoconf automake libtool pkg-config \
+                   libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libraspberrypi-dev \
         && apt-get clean
 
 Git clone this repository to have the needed `stream.py` file
