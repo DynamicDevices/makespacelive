@@ -133,7 +133,17 @@ At the time of writing you should be able to
 
 ## Resin.io Based
 
-[TBD]
+Follow the Resin.io getting started tutorial [here](https://docs.resin.io/learn/getting-started/raspberrypi3/python)
+
+There are a range of example projects. We suggest working through the link above. 
+
+Then you can clone this repository and push it to your Resin.io repo endpoint which will build the Docker container(s) and deploy to your device(s)
+
+    git clone https://github.com/DynamicDevices/makespacelive.git
+    
+You should end up with a dashboard that looks something like this
+
+[example](https://image.ibb.co/jxuC9K/resindash.jpg)
 
 # Operation
 
