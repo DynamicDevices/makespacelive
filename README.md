@@ -66,6 +66,14 @@ We are currently working on VM images for
 - Matthew Croughan
 - Sarat Kumar
 
+# Architecture
+
+Architecture is currently very simple and consists of:
+
+- [Dockerfile.template](./Dockerfile.template) which scripts creation of the Resin.io OS image (this can be recreated manually if you don't want to use Resin - see below)
+- Support files from Resin.io [resin-io-connect](https://github.com/resin-io/resin-wifi-connect) project to support local Wifi AP configuration
+- [stream.py](./stream.py) Python script which performs all streaming setup and runs the GStreamer1.0 pipeline
+
 # Installation
 
 ## Standalone
