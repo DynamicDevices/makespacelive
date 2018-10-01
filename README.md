@@ -161,7 +161,7 @@ The last step is to set environment variables for your stream URL and Key as in 
 
 You should do this in your Resin.io dashboard under the 'Service Variables' tab e.g.
 
-![example](https://preview.ibb.co/fo7cbz/resinservicevars.jpg)
+![example](https://image.ibb.co/nash9K/resinservicevars2.jpg)
 
 # Operation
 
