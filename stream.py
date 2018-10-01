@@ -15,36 +15,26 @@ from gi.repository import GObject, Gst
 
 # Definitions
 
-#
-# Alex Replayer stream
-#STREAM_URL='rtmp://eu-london.restream.io'
-#STREAM_KEY='re_929843_ff06cc0803dbf2b80d0d'
-
 # Matt box stream
-STREAM_URL='rtmp://10.0.31.212'
-STREAM_KEY=''
+STREAM_URL= os.getenv('AV_STREAM_URL','rtmp://10.0.31.212/live')
+STREAM_KEY=os.getenv('AV_STREAM_KEY','')
 
-if len(sys.argv) == 2:
-    STREAM_URL += "/" + sys.argv[1]
-else:
-    STREAM_URL += "/live"
-
+FORCE_AUDIO_ONLY=os.getenv('AV_FORCE_AUDIO_ONLY',false)
 HAS_AUDIO=0
-AUDIO_SAMPLING_RATE=16000
-#AUDIO_SAMPLING_RATE=44100
+AUDIO_SAMPLING_RATE=os.getenv('AV_AUDIO_SAMPLING_RATE',16000)
 
 # Set to empty if the v4l2src supports h.264 output, otherwise use h/w accelerated encoding
 H264_ENCODER=''
 
-AUDIO_DEVICE=1
-AUDIO_BITRATE=128
+AUDIO_DEVICE=os.getenv('AV_AUDIO_DEVICE', 1)
+AUDIO_BITRATE=os.getenv('AV_AUDIO_BITRATE',128)
 
-VIDEO_SOURCE="rpicamsrc keyframe-interval=2 hflip=true vflip=true"
+VIDEO_SOURCE=os.getenv('AV_VIDEO_SOURCE','rpicamsrc keyframe-interval=2 hflip=true vflip=true')
 #VIDEO_SOURCE="uvch264src initial-bitrate=5000000 average-bitrate=5000000 iframe-period=3000 device=/dev/video0 name=src auto-start=true"
 #VIDEO_SOURCE="uvch264src device=/dev/video0 auto-start=true"
-VIDEO_WIDTH=1280
-VIDEO_HEIGHT=720
-VIDEO_FRAMERATE=30
+VIDEO_WIDTH=os.getenv('AV_VIDEO_WIDTH',1280)
+VIDEO_HEIGHT=os.getenv('AV_VIDEO_HEIGHT',720)
+VIDEO_FRAMERATE=os.getenv('AV_VIDEO_FRAMERATE',30)
 
 # Support functions
 
