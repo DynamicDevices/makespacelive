@@ -141,9 +141,9 @@ Then you can clone this repository and push it to your Resin.io repo endpoint wh
 
     git clone https://github.com/DynamicDevices/makespacelive.git
     
-You should end up with a dashboard that looks something like this
+You should end up with a dashboard that looks something like [this](https://image.ibb.co/jxuC9K/resindash.jpg)
 
-[example](https://image.ibb.co/jxuC9K/resindash.jpg)
+![example](https://image.ibb.co/jxuC9K/resindash.jpg)
 
 # Operation
 
