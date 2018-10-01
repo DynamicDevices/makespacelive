@@ -120,7 +120,7 @@ At the time of writing you should be able to
 - Git clone this repository to have the needed `stream.py` file
 
     cd ~
-    git clone git@github.com:DynamicDevices/makespacelive.git
+    git clone https://github.com/DynamicDevices/makespacelive.git
 
 - If using a Picam you will need to build and install the `rpicamsrc` GStreamer1.0 plugin
 
@@ -128,7 +128,7 @@ At the time of writing you should be able to
     git clone https://github.com/thaytan/gst-rpicamsrc.git
     cd gst-rpicamsrc && ./autogen.sh && make && sudo make install
 
-- See the [Configuration](#Configuration) section below for an example of how to run the live streaming pipeline
+- See the [Configuration](Configuration) section below for an example of how to run the live streaming pipeline
 
 ## Resin.io Based
 
