@@ -1,11 +1,52 @@
 #!/usr/bin/python3
 
+#
+# Script to handle live streaming audio/video from platforms such as RPi2/3/Zero
+#
+
+# Imports
+
 import os
 import subprocess
 import sys
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import GObject, Gst
+
+# Definitions
+
+#
+# Alex Replayer stream
+#STREAM_URL='rtmp://eu-london.restream.io'
+#STREAM_KEY='re_929843_ff06cc0803dbf2b80d0d'
+
+# Matt box stream
+STREAM_URL='rtmp://10.0.31.212'
+STREAM_KEY=''
+
+if len(sys.argv) == 2:
+    STREAM_URL += "/" + sys.argv[1]
+else:
+    STREAM_URL += "/live"
+
+HAS_AUDIO=0
+AUDIO_SAMPLING_RATE=16000
+#AUDIO_SAMPLING_RATE=44100
+
+# Set to empty if the v4l2src supports h.264 output, otherwise use h/w accelerated encoding
+H264_ENCODER=''
+
+AUDIO_DEVICE=1
+AUDIO_BITRATE=128
+
+VIDEO_SOURCE="rpicamsrc keyframe-interval=2 hflip=true vflip=true"
+#VIDEO_SOURCE="uvch264src initial-bitrate=5000000 average-bitrate=5000000 iframe-period=3000 device=/dev/video0 name=src auto-start=true"
+#VIDEO_SOURCE="uvch264src device=/dev/video0 auto-start=true"
+VIDEO_WIDTH=1280
+VIDEO_HEIGHT=720
+VIDEO_FRAMERATE=30
+
+# Support functions
 
 def exists(path):
     """Test whether a path exists.  Returns False for broken symbolic links"""
@@ -40,68 +81,42 @@ def set_saturation(pipeline):
     saturation += 10
     return True
 
-# Alex Replayer stream
-#STREAM_URL='rtmp://eu-london.restream.io'
-#STREAM_KEY='re_929843_ff06cc0803dbf2b80d0d'
-
-# Matt box stream
-STREAM_URL='rtmp://10.0.31.212'
-STREAM_KEY=''
-
-if len(sys.argv) == 2:
-    STREAM_URL += "/" + sys.argv[1]
-else:
-    STREAM_URL += "/live"
-
-HAS_AUDIO=0
-AUDIO_SAMPLING_RATE=16000
-#AUDIO_SAMPLING_RATE=44100
-
-# Set to empty if the v4l2src supports h.264 output, otherwise use h/w accelerated encoding
-H264_ENCODER=''
-
-AUDIO_DEVICE=1
-AUDIO_BITRATE=128
-
-VIDEO_SOURCE="rpicamsrc keyframe-interval=2 hflip=true vflip=true"
-#VIDEO_SOURCE="uvch264src initial-bitrate=5000000 average-bitrate=5000000 iframe-period=3000 device=/dev/video0 name=src auto-start=true"
-#VIDEO_SOURCE="uvch264src device=/dev/video0 auto-start=true"
-VIDEO_WIDTH=1280
-VIDEO_HEIGHT=720
-VIDEO_FRAMERATE=30
-
-# Check if we have a v4l2src
-if exists('/dev/video0') :
-    print("Detected webcam")
-    VIDEO_SOURCE="v4l2src"
-    # Assume for now we have audio (!)
-    print('Assume webcam has audio')
-    HAS_AUDIO=1
-    # Check if the webcam outputs native h.264
-    result = subprocess.run(['v4l2-ctl','--list-formats'], stdout=subprocess.PIPE)
-    if "H264" not in str(result.stdout):
-      print('Webcam does not support h.264')
-      H264_ENCODER='omxh264enc !'
-    else:
-      print('Webcam supports h.264')
-else:
-    print("Defaulting to PiCam")
-    HAS_AUDIO=0
-    H264_ENCODER='omxh264enc !'
-    result = subprocess.run(['cat','/proc/asound/devices'], stdout=subprocess.PIPE)
-    if "capture" not in str(result.stdout):
-      print('No audio capture available')
-    else:
-      print('Audio capture available')
-      HAS_AUDIO=1
-      # Assume hardware device 1 (TODO: Work this out from result.stdout)
-      AUDIO_DEVICE=1
-      # Assume we can capture at 44100
-      AUDIO_SAMPLING_RATE=44100
-
+# Main function
 if __name__ == "__main__":
+
+    # Detect platform specifics
+
+    # Check if we have a v4l2src
+    if exists('/dev/video0') :
+        print("Detected webcam")
+        VIDEO_SOURCE="v4l2src"
+        # Assume for now we have audio (!)
+        print('Assume webcam has audio')
+        HAS_AUDIO=1
+        # Check if the webcam outputs native h.264
+        result = subprocess.run(['v4l2-ctl','--list-formats'], stdout=subprocess.PIPE)
+        if "H264" not in str(result.stdout):
+            print('Webcam does not support h.264')
+            H264_ENCODER='omxh264enc !'
+        else:
+            print('Webcam supports h.264')
+    else:
+        print("Defaulting to PiCam")
+        HAS_AUDIO=0
+        H264_ENCODER='omxh264enc !'
+        result = subprocess.run(['cat','/proc/asound/devices'], stdout=subprocess.PIPE)
+        if "capture" not in str(result.stdout):
+            print('No audio capture available')
+        else:
+            print('Audio capture available')
+            HAS_AUDIO=1
+            # Assume hardware device 1 (TODO: Work this out from result.stdout)
+            AUDIO_DEVICE=1
+            # Assume we can capture at 44100
+            AUDIO_SAMPLING_RATE=44100
+
+    # Initialization
     GObject.threads_init()
-    # initialization
     loop = GObject.MainLoop()
     Gst.init(None)
 
@@ -123,8 +138,8 @@ if __name__ == "__main__":
     pipeline = Gst.parse_launch(pipelinestr)
 
     if pipeline == None:
-      print ("Failed to create pipeline")
-      sys.exit(0)
+        print ("Failed to create pipeline")
+        sys.exit(0)
 
     # watch for messages on the pipeline's bus (note that this will only
     # work like this when a GLib main loop is running)
