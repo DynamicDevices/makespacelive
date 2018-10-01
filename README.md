@@ -103,6 +103,7 @@ At the time of writing you should be able to
 - Grab the current Raspbian image from [here](https://www.raspberrypi.org/downloads/raspbian)
 - Write this to a uSD card using `dd` or your flash writing tool of choice e.g. [Etcher](https://etcher.io/)
 - Boot up the image and allow it to configure
+- Ensure you've set up wired or wireless internet connectivity
 - You will need to set `gpu_mem` in the `config.txt` file in the uSD FAT boot partition to e.g. 128
 - You will need to set `start_x=1` in the `config.txt file in the uSD FAT boot partition if you will be using PiCams.
 - Then run the following APT command to install needed dependencies. NB. Check the current commit of `Dockerfile.template` for the current command
