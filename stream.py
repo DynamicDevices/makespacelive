@@ -19,7 +19,7 @@ from gi.repository import GObject, Gst
 STREAM_URL= os.getenv('AV_STREAM_URL','rtmp://10.0.31.212/live')
 STREAM_KEY=os.getenv('AV_STREAM_KEY','')
 
-FORCE_AUDIO_ONLY=os.getenv('AV_FORCE_AUDIO_ONLY',false)
+FORCE_AUDIO_ONLY=os.getenv('AV_FORCE_AUDIO_ONLY',0)
 HAS_AUDIO=0
 AUDIO_SAMPLING_RATE=os.getenv('AV_AUDIO_SAMPLING_RATE',16000)
 
@@ -114,6 +114,9 @@ if __name__ == "__main__":
     videostr = VIDEO_SOURCE + " ! " + H264_ENCODER + " video/x-h264,width=" +str(VIDEO_WIDTH) + ",height=" + str(VIDEO_HEIGHT) + ",framerate=" + str(VIDEO_FRAMERATE) + "/1 ! h264parse ! "
     muxstr = "flvmux streamable=true name=mux ! queue ! "
     sinkstr = "rtmpsink location='" + STREAM_URL + "/" + STREAM_KEY + " live=1 flashver=FME/3.0%20(compatible;%20FMSc%201.0)'"
+
+    if FORCE_AUDIO_ONLY == 1:
+        HAS_AUDIO=0
 
     if HAS_AUDIO:
         # Audio + Video -> Restream.io
