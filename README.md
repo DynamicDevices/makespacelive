@@ -106,9 +106,10 @@ At the time of writing you should be able to
 - Ensure you've set up wired or wireless internet connectivity
 - You will need to set `gpu_mem` in the `config.txt` file in the uSD FAT boot partition to e.g. 128
 - You will need to set `start_x=1` in the `config.txt file in the uSD FAT boot partition if you will be using PiCams.
-- Then run the following APT command to install needed dependencies. NB. Check the current commit of `Dockerfile.template` for the current command
 
-    `apt-get update \
+Then run the following APT command to install needed dependencies. NB. Check the current commit of `Dockerfile.template` for the current command
+
+    apt-get update \
         && apt-get install -y dnsmasq wireless-tools dbus xterm \
                           v4l-utils nano bc wget unzip netcat alsa-utils build-essential git usbutils openssh-server \
 			  python3 python3-gi \
@@ -116,31 +117,25 @@ At the time of writing you should be able to
                           gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-alsa \
                           autoconf automake libtool pkg-config \
                           libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libraspberrypi-dev \
-        && apt-get clean`
+        && apt-get clean
 
-- Git clone this repository to have the needed `stream.py` file
+Git clone this repository to have the needed `stream.py` file
 
-    `cd ~
+    cd ~
+    git clone https://github.com/DynamicDevices/makespacelive.git
 
-    git clone https://github.com/DynamicDevices/makespacelive.git`
+If using a Picam you will need to build and install the `rpicamsrc` GStreamer1.0 plugin
 
-- If using a Picam you will need to build and install the `rpicamsrc` GStreamer1.0 plugin
-
-    `cd ~
-
+    cd ~
     git clone https://github.com/thaytan/gst-rpicamsrc.git
+    cd gst-rpicamsrc && ./autogen.sh && make && sudo make install
 
-    cd gst-rpicamsrc && ./autogen.sh && make && sudo make install`
+An example setup script would be something like:
 
-- An example setup script would be something like:
-
-    `cd ~/makespacelive
-
+    cd ~/makespacelive
     export AV_STREAM_URL=my_stream_url
-
     export AV_STREAM_KEY=my_stream_key
-
-    ./stream.py`
+    ./stream.py
 
 ## Resin.io Based
 
