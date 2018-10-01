@@ -1,6 +1,6 @@
 # Overview
 
-We host a variety of events at the DoES Liverpool makerspace/tech. hub in Liverpool and have been thinking for some time of how we might live stream these.
+We host a variety of events at the DoES Liverpool MakerSpace/Tech. Hub in Liverpool and have been thinking for some time of how we might live stream these.
 
 Being a community of makers it seemed appropriate that we should look at what can be achieved with OpenSource / OpenHardware platforms for live streaming
 
@@ -31,17 +31,25 @@ Audio is supported from the Logitech webcams and we've successfully tested USB a
 
 ## Device - Firmware
 
-We are using the Resin.io cloud firmware management infrastructure to manage firmware updates and remote access to devices
+We are using the [Resin.io](https://resin.io/how-it-works) cloud firmware management infrastructure to manage firmware updates and remote access to devices
 
-The live streaming support on the client is based on GStreamer pipelines
+The live streaming support on the client is based on [GStreamer1.0](https://gstreamer.freedesktop.org/) pipelines.
 
-The Gstreamer pipeline is configured to stream audio/video as h.264/FLV encoded RTMP streams to a configurable internet server
+The Gstreamer pipeline is configured to stream audio/video as [H.264](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC)/[FLV](https://en.wikipedia.org/wiki/Flash_Video) encoded [RTMP](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol) streams to a configurable internet server
+
+## Device - Enclosures
+
+We're currently looking at a couple of Raspberry Pi Zero enclosure designs.
+
+e.g.
+
+https://www.thingiverse.com/thing:3128603
 
 ## Cloud RTMP - servers
 
-We have been testing with the Restream.io cloud platform which takes an RTMP stream and will then restream to other cloud endpoints such as Twitch, Youtube, and Facebook
+We have been testing with the [Restream.io](https://restream.io) cloud platform which takes an RTMP stream and will then restream to other cloud endpoints such as [Twitch](https://www.twitch.tv), [Youtube](https://www.youtube.com/live), and [Facebook](https://live.fb.com)
 
-Stream URL and Stream Key are configurable and can be pointed to other endpoints easily
+The RTMP Stream URL and Stream Key are configurable and can be pointed to other endpoints easily
 
 ## Real time editing
 
@@ -52,10 +60,10 @@ We are currently working on VM images for
 
 # Maintainers & Contributers
 
-Alex J Lennon
-Dan Lynch
-Matthew Croughan
-Sarat Kumar
+- Alex J Lennon
+- Dan Lynch
+- Matthew Croughan
+- Sarat Kumar
 
 # Installation
 
@@ -63,5 +71,28 @@ Sarat Kumar
 
 # Configuration
 
-[TBD]
+Configuration is achieved by setting environment variables prior to running `stream.py`
+
+Currently supported variables are:
+
+| Key                    | Description                              | Default Value            |
+|------------------------|------------------------------------------| -------------------------|
+| AV_STREAM_URL          | Target for RTMP live stream              | rtmp://10.0.31.212/live  |
+| AV_STREAM_KEY          | Stream key if applcable                  |                          |
+| AV_DISABLE_AUDIO       | Do not transmit audio                    | 0                        |
+| AV_AUDIO_SAMPLING_RATE | Audio sample rate in Hz                  | 16000                    |
+| AV_AUDIO_DEVICE        | ALSA audio hardware device               | 1                        |
+| AV_AUDIO_BITRATE       | Encoded audio bitrate in kbps            | 128                      |
+| AV_VIDEO_SOURCE        | Override the detected video source [TBD] |                          |
+| AV_VIDEO_WIDTH         | Width of captured/encoded video          | 1280                     |
+| AV_VIDEO_HEIGHT        | Height of captured/encoded video         | 720                      |
+| AV_VIDEO_FRAMERATE     | Video frame rate in fps                  | 30                       |
+
+An example setup script would be something like:
+
+    export AV_STREAM_URL=my_stream_url
+    export AV_STREAM_KEY=my_stream_key
+    ./stream.py
+
+
 
