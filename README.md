@@ -84,6 +84,20 @@ Architecture is currently very simple and consists of:
 
 [TBD]
 
+# Operation
+
+- Configure environment variables `AV_STREAM_URL` and `AV_STREAM_KEY` for your RTMP server endpoint
+
+You may choose to create a free [Restream.io](https://restream.io) account for testing. You will first need to add a channel to your Restream.io dashboard (e.g. Twitch or YouTube) and then will be able to see your unique URL and key. Click on the key to make it visible.
+
+- Optionally set other configuration environment variables as needed but defaults should work ok with Restream.io
+
+- Run the `stream.py` script. This will do some detection of connected webcams/Picams and start livestreaming to your configured endpoint
+
+- If using Restream.io you will see the image come up something like [this](https://image.ibb.co/ceRpOe/retreamme.jpg)
+
+![example](https://image.ibb.co/ceRpOe/retreamme.jpg)
+
 # Configuration
 
 Configuration is achieved by setting environment variables prior to running `stream.py`
