@@ -121,19 +121,25 @@ At the time of writing you should be able to
 - Git clone this repository to have the needed `stream.py` file
 
     `cd ~
+
     git clone https://github.com/DynamicDevices/makespacelive.git`
 
 - If using a Picam you will need to build and install the `rpicamsrc` GStreamer1.0 plugin
 
     `cd ~
+
     git clone https://github.com/thaytan/gst-rpicamsrc.git
+
     cd gst-rpicamsrc && ./autogen.sh && make && sudo make install`
 
 - An example setup script would be something like:
 
     `cd ~/makespacelive
+
     export AV_STREAM_URL=my_stream_url
+
     export AV_STREAM_KEY=my_stream_key
+
     ./stream.py`
 
 ## Resin.io Based
