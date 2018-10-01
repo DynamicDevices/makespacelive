@@ -129,7 +129,12 @@ At the time of writing you should be able to
     git clone https://github.com/thaytan/gst-rpicamsrc.git
     cd gst-rpicamsrc && ./autogen.sh && make && sudo make install`
 
-- See the [Configuration](Configuration) section below for an example of how to run the live streaming pipeline
+- An example setup script would be something like:
+
+    cd ~/makespacelive
+    export AV_STREAM_URL=my_stream_url
+    export AV_STREAM_KEY=my_stream_key
+    ./stream.py
 
 ## Resin.io Based
 
