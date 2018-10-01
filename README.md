@@ -74,11 +74,61 @@ Architecture is currently very simple and consists of:
 - Support files from Resin.io [resin-io-connect](https://github.com/resin-io/resin-wifi-connect) project to support local Wifi AP configuration
 - [stream.py](./stream.py) Python script which performs all streaming setup and runs the GStreamer1.0 pipeline
 
+# Supported Hardware
+
+Please feel free to test and feed back your successes so we can grow this list
+
+- Raspberry Pi v3 (beta)
+- Raspberry Pi Zero W (alpha)
+
+- Logitech C920 cam (audio/video, beta)
+- Logitech C270 cam (audio/video, beta)
+- PiCam (video, beta)
+- PiCam Zero (video, alpha)
+
 # Installation
 
 ## Standalone
 
-[TBD]
+Live Streaming support should work on any platform capable of running GStreamer1.0 pipelines. We also require support for Python3 and Python3 GStreamer1.0 bindings for `script.py`
+
+This project is currently focussed on Linux platforms on Raspberry Pi hardware (v3 / Zero W) but there should be no real hurdle in running on other Linux/Embedded Linux platforms or indeed under Windows as GStreamer1.0 and Python are available for Win32.
+
+Different platform builds of GStreamer1.0 can have slightly different plugin naming conventions and/or sometimes plugins can be missing. This may involve a certain amount of hand-rolling. Feel free to raise an issue if you run into trouble.
+
+The [Dockerfile.template)(./Dockerfile.template) contains Docker format scripting to build a Linux image for Raspberry Pi with all needed components, and some optional extras.
+
+At the time of writing you should be able to 
+
+- Grab the current Raspbian image from [here](https://www.raspberrypi.org/downloads/raspbian)
+- Write this to a uSD card using `dd` or your flash writing tool of choice e.g. [Etcher](https://etcher.io/)
+- Boot up the image and allow it to configure
+- You will need to set `gpu_mem` in the `config.txt` file in the uSD FAT boot partition to e.g. 128
+- You will need to set `start_x=1` in the `config.txt file in the uSD FAT boot partition if you will be using PiCams.
+- Then run the following APT command to install needed dependencies. NB. Check the current commit of `Dockerfile.template` for the current command
+
+    apt-get update \
+        && apt-get install -y dnsmasq wireless-tools dbus xterm \
+                          v4l-utils nano bc wget unzip netcat alsa-utils build-essential git usbutils openssh-server \
+			  python3 python3-gi \
+                          gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
+                          gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-alsa \
+                          autoconf automake libtool pkg-config \
+                          libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libraspberrypi-dev \
+        && apt-get clean
+
+- Git clone this repository to have the needed `stream.py` file
+
+    cd ~
+    git clone git@github.com:DynamicDevices/makespacelive.git
+
+- If using a Picam you will need to build and install the `rpicamsrc` GStreamer1.0 plugin
+
+    cd ~
+    git clone https://github.com/thaytan/gst-rpicamsrc.git
+    cd gst-rpicamsrc && ./autogen.sh && make && sudo make install
+
+- See the [Configuration](#Configuration) section below for an example of how to run the live streaming pipeline
 
 ## Resin.io Based
 
@@ -119,6 +169,7 @@ Currently supported variables are:
 
 An example setup script would be something like:
 
+    cd ~/makespacelive
     export AV_STREAM_URL=my_stream_url
     export AV_STREAM_KEY=my_stream_key
     ./stream.py
