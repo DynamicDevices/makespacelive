@@ -157,6 +157,11 @@ You should end up with a dashboard that looks something like [this](https://imag
 
 ![example](https://image.ibb.co/jxuC9K/resindash.jpg)
 
+The last step is to set environment variables for your stream URL and Key as in the [Operation](#Operation) section below
+
+You should do this in your Resin.io dashboard under the 'Service Variables' tab e.g.
+
+![example](https://preview.ibb.co/fo7cbz/resinservicevars.jpg)
 
 # Operation
 
