@@ -146,10 +146,17 @@ There are a range of example projects. We suggest working through the link above
 Then you can clone this repository and push it to your Resin.io repo endpoint which will build the Docker container(s) and deploy to your device(s)
 
     git clone https://github.com/DynamicDevices/makespacelive.git
+
+When the container runs up it will be unable to connect to Wifi and so will start a local Wifi Access Point called "Wifi Connect"
+
+You should connect to this AP with your phone and a page will pop up allowing you to select the Wifi SSSID and enter the correct password.
+
+The device will then connect to the internet and to the Resin.io dashboard.
     
 You should end up with a dashboard that looks something like [this](https://image.ibb.co/jxuC9K/resindash.jpg)
 
 ![example](https://image.ibb.co/jxuC9K/resindash.jpg)
+
 
 # Operation
 
