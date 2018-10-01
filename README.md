@@ -1,6 +1,6 @@
 # Overview
 
-We host a variety of events at the DoES Liverpool MakerSpace/Tech. Hub in Liverpool and have been thinking for some time of how we might live stream these.
+We host a variety of events at the [DoES Liverpool](https://doesliverpool.com) MakerSpace/Tech. Hub in Liverpool and have been thinking for some time of how we might live stream these.
 
 Being a community of makers it seemed appropriate that we should look at what can be achieved with OpenSource / OpenHardware platforms for live streaming
 
@@ -41,9 +41,10 @@ The Gstreamer pipeline is configured to stream audio/video as [H.264](https://en
 
 We're currently looking at a couple of Raspberry Pi Zero enclosure designs.
 
-e.g.
+- PiZero design for PiCam [here](https://www.thingiverse.com/thing:1709013)
+- Remixed design for 2xPiZero and PiCam for 360 video experiements [here](https://www.thingiverse.com/thing:3128603)
 
-https://www.thingiverse.com/thing:3128603
+There are lots of others under various Creative Commons licenses which we are interested in hearing feedback on.
 
 ## Cloud RTMP - servers
 
@@ -55,8 +56,8 @@ The RTMP Stream URL and Stream Key are configurable and can be pointed to other 
 
 We are currently working on VM images for 
 
-- Local Nginx based RTMP restreaming and transcoding servers
-- OBS Studio VM image for real time a/v editing for live streams
+- Local [Nginx](https://www.nginx.com) based RTMP restreaming and transcoding servers
+- [OBS Studio](https://obsproject.com) VM image for real time a/v editing for live streams
 
 # Maintainers & Contributers
 
@@ -66,6 +67,12 @@ We are currently working on VM images for
 - Sarat Kumar
 
 # Installation
+
+## Standalone
+
+[TBD]
+
+## Resin.io Based
 
 [TBD]
 
