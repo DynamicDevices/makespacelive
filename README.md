@@ -131,10 +131,10 @@ At the time of writing you should be able to
 
 - An example setup script would be something like:
 
-    cd ~/makespacelive
+    `cd ~/makespacelive
     export AV_STREAM_URL=my_stream_url
     export AV_STREAM_KEY=my_stream_key
-    ./stream.py
+    ./stream.py`
 
 ## Resin.io Based
 
