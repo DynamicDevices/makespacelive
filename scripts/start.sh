@@ -24,4 +24,10 @@ else
 fi
 
 # Start your application here.
-./stream.py $RESIN_DEVICE_NAME_AT_INIT
+while [ 1 ]
+do
+    printf Streaming...
+    ./stream.py $RESIN_DEVICE_NAME_AT_INIT
+    printf Sleeping...
+    sleep 5
+done
