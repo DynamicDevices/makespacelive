@@ -21,6 +21,10 @@ The needs for such an infrastructure are
 - accessible to all on the internet
 - potential for monetisation of events
 
+## News
+
+For a discussion of what we've been up to in the initial stages of the project please see the demonstration we did for the Liverpool Linux User Group (LivLUG) - https://youtu.be/lT5uTzIM5s8
+
 ## Device - Hardware
 
 On the device side we are testing with the Raspberry Pi v3 which has Wifi and a GPU core for video encoding acceleration.
