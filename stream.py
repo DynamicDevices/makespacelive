@@ -117,7 +117,7 @@ if __name__ == "__main__":
     muxstr = "flvmux streamable=true name=mux ! queue ! "
     sinkstr = "rtmpsink location='" + STREAM_URL + "/" + STREAM_KEY + " live=1 flashver=FME/3.0%20(compatible;%20FMSc%201.0)'"
 
-    if DISABLE_AUDIO == 1:
+    if DISABLE_AUDIO == '1':
         HAS_AUDIO=0
 
     if HAS_AUDIO:
