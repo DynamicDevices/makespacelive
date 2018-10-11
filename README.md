@@ -87,7 +87,8 @@ Please feel free to test and feed back your successes so we can grow this list
 
 | Camera         | Support     | Status  | Notes                     | Needed Settings                         |
 | -------------- | ----------- | ------- | ------------------------- | --------------------------------------- |
-| Logitech Fusion| audio/video | alpha   | Device drops off USB bus  | AV_VIDEO_WIDTH=640, AV_VIDEO_HEIGHT=480 |
+| Logitech Fusion| audio/video | alpha   | Device drops off USB bus, | AV_VIDEO_WIDTH=640, AV_VIDEO_HEIGHT=480 |
+|                |             |         | Audio clicks              |                                         |
 | Logitech C920  | audio/video | alpha   | Audio drops out           |                                         |
 | Logitech C270  | audio/video | beta    |                           |                                         |
 | PiCam          | video       | beta    |                           |                                         |
