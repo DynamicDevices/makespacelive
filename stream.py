@@ -36,6 +36,8 @@ VIDEO_WIDTH=os.getenv('AV_VIDEO_WIDTH',1280)
 VIDEO_HEIGHT=os.getenv('AV_VIDEO_HEIGHT',720)
 VIDEO_FRAMERATE=os.getenv('AV_VIDEO_FRAMERATE',30)
 
+H264_ENCODER_PARAMS = os.getenv('AV_H264_ENCODER_PARAMS', '')
+
 # Support functions
 
 def exists(path):
@@ -87,13 +89,13 @@ if __name__ == "__main__":
         result = subprocess.run(['v4l2-ctl','--list-formats'], stdout=subprocess.PIPE)
         if "H264" not in str(result.stdout):
             print('Webcam does not support h.264')
-            H264_ENCODER='omxh264enc !'
+            H264_ENCODER='omxh264enc ' + H264_ENCODER_PARAMS + ' ! '
         else:
             print('Webcam supports h.264')
     else:
         print("Defaulting to PiCam")
         HAS_AUDIO=0
-        H264_ENCODER='omxh264enc !'
+        H264_ENCODER='omxh264enc ' + H264_ENCODER_PARAMS + ' ! '
         result = subprocess.run(['cat','/proc/asound/devices'], stdout=subprocess.PIPE)
         if "capture" not in str(result.stdout):
             print('No audio capture available')
