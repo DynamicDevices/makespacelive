@@ -203,6 +203,7 @@ Currently supported variables are:
 | AV_VIDEO_WIDTH         | Width of captured/encoded video          | 1280                     |
 | AV_VIDEO_HEIGHT        | Height of captured/encoded video         | 720                      |
 | AV_VIDEO_FRAMERATE     | Video frame rate in fps                  | 30                       |
+| AV_H264_ENCODER_PARAMS | Extra params for H.264 encoder plugin    |                          |
 
 An example setup script would be something like:
 
