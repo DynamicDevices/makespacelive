@@ -22,7 +22,7 @@ The needs for such an infrastructure are
 - potential for monetisation of events
 
 ## News
-
+ 
 For a discussion of what we've been up to in the initial stages of the project please see the demonstration we did for the Liverpool Linux User Group (LivLUG) - https://youtu.be/lT5uTzIM5s8
 
 ## Device - Hardware
@@ -85,10 +85,14 @@ Please feel free to test and feed back your successes so we can grow this list
 - Raspberry Pi v3 (beta)
 - Raspberry Pi Zero W (alpha)
 
-- Logitech C920 cam (audio/video, beta)
-- Logitech C270 cam (audio/video, beta)
-- PiCam (video, beta)
-- PiCam Zero (video, alpha)
+| Camera         | Support     | Status  | Notes                     | Needed Settings                         |
+| -------------- | ----------- | ------- | ------------------------- | --------------------------------------- |
+| Logitech Fusion| audio/video | alpha   | Device drops off USB bus  | AV_VIDEO_WIDTH=640, AV_VIDEO_HEIGHT=480 |
+| Logitech C920  | audio/video | alpha   | Audio drops out           |                                         |
+| Logitech C270  | audio/video | beta    |                           |                                         |
+| PiCam          | video       | beta    |                           |                                         |
+| PiCam Zero     | video       | alpha   |                           |                                         |
+
 
 # Installation
 
