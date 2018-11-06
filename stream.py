@@ -26,7 +26,7 @@ AUDIO_SAMPLING_RATE=os.getenv('AV_AUDIO_SAMPLING_RATE',16000)
 # Set to empty if the v4l2src supports h.264 output, otherwise use h/w accelerated encoding
 H264_ENCODER=''
 
-AUDIO_DEVICE=os.getenv('AV_AUDIO_DEVICE', 1)
+AUDIO_SRC=os.getenv('AV_AUDIO_SRC', 'alsasrc device=hw:1')
 AUDIO_BITRATE=os.getenv('AV_AUDIO_BITRATE',128)
 
 VIDEO_SOURCE=os.getenv('AV_VIDEO_SOURCE','rpicamsrc keyframe-interval=2 hflip=true vflip=true')
@@ -113,7 +113,7 @@ if __name__ == "__main__":
     loop = GObject.MainLoop()
     Gst.init(None)
 
-    audiostr = "alsasrc device=hw:" + str(AUDIO_DEVICE) + " ! audio/x-raw, format=(string)S16LE, endianness=(int)1234, signed=(boolean)true, width=(int)16, depth=(int)16, rate=(int)" + str(AUDIO_SAMPLING_RATE) + " ! queue ! voaacenc bitrate=" + str(AUDIO_BITRATE) + " ! aacparse ! audio/mpeg,mpegversion=4,stream-format=raw ! queue ! mux. "
+    audiostr = AUDIO_SRC + " ! audio/x-raw, format=(string)S16LE, endianness=(int)1234, signed=(boolean)true, width=(int)16, depth=(int)16, rate=(int)" + str(AUDIO_SAMPLING_RATE) + " ! queue ! voaacenc bitrate=" + str(AUDIO_BITRATE) + " ! aacparse ! audio/mpeg,mpegversion=4,stream-format=raw ! queue ! mux. "
     videostr = VIDEO_SOURCE + " ! " + H264_ENCODER + " video/x-h264,profile=high,width=" +str(VIDEO_WIDTH) + ",height=" + str(VIDEO_HEIGHT) + ",framerate=" + str(VIDEO_FRAMERATE) + "/1 ! h264parse " + H264_PARSER_PARAMS + " ! "
     muxstr = "flvmux streamable=true name=mux ! queue ! "
     sinkstr = "rtmpsink location='" + STREAM_URL + "/" + STREAM_KEY + " live=1 flashver=FME/3.0%20(compatible;%20FMSc%201.0)'"
