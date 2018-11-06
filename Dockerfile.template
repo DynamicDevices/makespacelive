@@ -17,7 +17,7 @@ RUN apt-get update \
 WORKDIR /usr/src/app
 
 # Install wifi connect
-RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
+RUN curl https://github.com/balena-io/wifi-connect.git -s \
     | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
     | xargs -n1 curl -Ls \
     | tar -xvz -C /usr/src/app/
