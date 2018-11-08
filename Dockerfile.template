@@ -3,7 +3,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch
 
 ENV INITSYSTEM on
 
- Install dependencies
+# Install dependencies
 RUN apt-get update \
     && apt-get install -y dnsmasq wireless-tools dbus xterm \
                           v4l-utils nano bc wget unzip netcat alsa-utils build-essential git usbutils openssh-server \
