@@ -1,4 +1,5 @@
-FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch
+#FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch
 
 ENV INITSYSTEM on
 
