@@ -5,24 +5,11 @@ ENV INITSYSTEM on
 
 WORKDIR /usr/src/app
 
-# Install FFMPEG Python bindings
-RUN apt-get install python3-pip python3-setuptools
-RUN pip3 install wheel
-RUN pip3 install ffmpeg-python
-
 # Install wifi connect
 RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s \
     | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
     | xargs -n1 curl -Ls \
     | tar -xvz -C /usr/src/app/
-
-# Setup gst-rpicamsrc
-RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
-RUN cd gst-rpicamsrc && ./autogen.sh && make && make install
-
-# Grab ngrok
-RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-RUN unzip ngrok-stable-linux-arm.zip
 
 COPY scripts/start.sh .
 COPY stream.py .
