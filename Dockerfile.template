@@ -7,8 +7,7 @@ WORKDIR /usr/src/app
 
 # Install Jupyter kernel
 RUN apt-get install python3-dev
-RUN pip3 install Cython
-RUN pip3 install jupyter_kernel_gateway
+RUN pip3 install jupyter
 
 # Install wifi connect
 RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s \
