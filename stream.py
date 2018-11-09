@@ -162,5 +162,3 @@ if __name__ == "__main__":
 
     # All done - cleanup
     pipeline.set_state(Gst.State.NULL)
-
-
