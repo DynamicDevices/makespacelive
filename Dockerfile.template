@@ -6,9 +6,9 @@ ENV INITSYSTEM on
 WORKDIR /usr/src/app
 
 # Install FFMPEG Python bindings
-RUN apt-get install python-pip python-setuptools
-RUN pip install wheel
-RUN pip install ffmpeg-python
+RUN apt-get install python3-pip python3-setuptools
+RUN pip3 install wheel
+RUN pip3 install ffmpeg-python
 
 # Install wifi connect
 RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s \
