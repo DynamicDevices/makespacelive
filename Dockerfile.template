@@ -6,7 +6,7 @@ ENV INITSYSTEM on
 WORKDIR /usr/src/app
 
 # Install FFMPEG Python bindings
-RUN apt-get install python-pip
+RUN apt-get install python-pip python-setuptools
 RUN pip install ffmpeg-python
 
 # Install wifi connect
