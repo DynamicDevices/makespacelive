@@ -6,6 +6,7 @@ ENV INITSYSTEM on
 WORKDIR /usr/src/app
 
 # Install Jupyter kernel
+RUN apt-get install python3-dev
 RUN pip3 install Cython
 RUN pip3 install jupyter_kernel_gateway
 
