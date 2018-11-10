@@ -7,6 +7,11 @@ WORKDIR /usr/src/app
 
 # Install  dependencies
 RUN apt-get -y install python3-matplotlib
+RUN apt-get -y install cmake \
+                       libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev \
+                       libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
+                       libgtk2.0-dev \
+                       libatlas-base-dev gfortran
 
 # Build OpenCV
 RUN cd ~ && git clone https://github.com/Itseez/opencv.git
