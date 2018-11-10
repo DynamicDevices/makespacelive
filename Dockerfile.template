@@ -6,6 +6,7 @@ ENV INITSYSTEM on
 WORKDIR /usr/src/app
 
 # Install  dependencies
+RUN apt-get update
 RUN apt-get -y install python3-matplotlib
 RUN apt-get -y install cmake \
                        libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev \
