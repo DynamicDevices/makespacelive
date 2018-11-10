@@ -8,8 +8,7 @@ WORKDIR /usr/src/app
 # Install  dependencies
 RUN apt-get -y install python3-matplotlib
 
-RUN pip install numpy
-
+# Build OpenCV
 RUN cd ~ && git clone https://github.com/Itseez/opencv.git
 RUN cd ~ && cd opencv && git checkout 3.4.3
 RUN cd ~ && cd opencv && mkdir build && cd build \
