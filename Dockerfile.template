@@ -13,10 +13,6 @@ RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s 
     | xargs -n1 curl -Ls \
     | tar -xvz -C /usr/src/app/
 
-# Setup gst-rpicamsrc
-RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
-RUN cd gst-rpicamsrc && ./autogen.sh && make && make install
-
 COPY scripts/start.sh .
 COPY stream.py .
 
