@@ -1,17 +1,25 @@
 FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch
+MAINTAINER ajlennon@dynamicdevices.co.uk
 
 ENV INITSYSTEM on
 
 WORKDIR /usr/src/app
 
-# Install test dependencies
+# Install  dependencies
 RUN apt-get -y install python3-matplotlib
 
-# Install wifi connect
-RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s \
-    | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
-    | xargs -n1 curl -Ls \
-    | tar -xvz -C /usr/src/app/
+RUN pip install numpy
+
+RUN cd ~ && git clone https://github.com/Itseez/opencv.git
+RUN cd ~ && cd opencv && git checkout 3.4.3
+RUN cd ~ && cd opencv && mkdir build && cd build \
+         && cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_C_EXAMPLES=ON \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D BUILD_EXAMPLES=ON ..
+
 
 COPY scripts/start.sh .
 COPY stream.py .

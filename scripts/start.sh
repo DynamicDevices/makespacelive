@@ -23,6 +23,19 @@ else
     ./wifi-connect
 fi
 
+# Check if we should run up Jupyter kernel on 0.0.0.0:80
+if [ ! -z "$DEBUG_RUN_JUPYTER" ]
+then
+while [ 1 ]
+do
+    printf Running Jupyter notebook
+    cd /data
+    jupyter notebook --allow-root --ip=0.0.0.0 --port=80 --NotebookApp.token=''
+    printf Sleeping...
+    sleep 5
+done
+fi
+
 # Start your application here.
 while [ 1 ]
 do
