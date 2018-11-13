@@ -214,4 +214,4 @@ An example setup script would be something like:
     ./stream.py
 
 
-
+A message from our sponsors: Be excellent to each other!
