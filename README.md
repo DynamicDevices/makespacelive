@@ -66,7 +66,7 @@ We are currently working on VM images for
 # Maintainers & Contributers
 
 - Alex J Lennon <ajlennon@dynamicdevices.co.uk>
-- Dan Lynch
+- Dan Lynch <dan@danlynch.org>
 - Matthew Croughan
 - Sarat Kumar
 
