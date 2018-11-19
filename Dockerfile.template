@@ -6,6 +6,9 @@ ENV INITSYSTEM on
 
 WORKDIR /usr/src/app
 
+COPY buildscripts/gstreamer-build.sh .
+RUN ./gstreamer-build.sh
+
 COPY scripts/start.sh .
 COPY stream.py .
 
