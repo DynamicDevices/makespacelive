@@ -4,7 +4,10 @@ MAINTAINER ajlennon@dynamicdevices.co.uk
 
 ENV INITSYSTEM on
 
-RUN apt-get install -y libnice-dev
+# Build needed version of nice
+RUN wget https://nice.freedesktop.org/releases/libnice-0.1.14.tar.gz
+RUN     tar xaf libnice-0.1.14.tar.gz
+     cd libnice-0.1.14 && ./configure --prefix=$HOME/opt/libnice && make -j4 install
 
 RUN git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad
 RUN cd gst-plugins-bad && ./autogen.sh --disable-gtk-doc \
