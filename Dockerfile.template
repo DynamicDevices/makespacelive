@@ -1,3 +1,4 @@
+# New build
 FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch
 MAINTAINER ajlennon@dynamicdevices.co.uk
 
