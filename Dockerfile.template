@@ -4,6 +4,8 @@ MAINTAINER ajlennon@dynamicdevices.co.uk
 
 ENV INITSYSTEM on
 
+RUN apt-get install -y libnice-dev
+
 RUN git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad
 RUN cd gst-plugins-bad && ./autogen.sh --disable-gtk-doc \
  && export CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/' \
