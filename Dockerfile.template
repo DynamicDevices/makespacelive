@@ -9,12 +9,11 @@ RUN apt-get install -y libjson-glib-dev libopus-dev libvpx-dev
 
 # Build needed version of nice
 RUN wget https://nice.freedesktop.org/releases/libnice-0.1.14.tar.gz
-RUN     tar xaf libnice-0.1.14.tar.gz && cd libnice-0.1.14 && ./configure --prefix=/opt/libnice && make -j4 install
+RUN     tar xaf libnice-0.1.14.tar.gz && cd libnice-0.1.14 && ./configure && make -j4 install
 
 # Build gstreamer-plugins-bad
 RUN git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad
 RUN cd gst-plugins-bad && ./autogen.sh --disable-gtk-doc \
- && export PKG_CONFIG_PATH=/opt/libnice/lib/pkgconfig \
  && export CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/' \
  && export LDFLAGS='-L/opt/vc/lib' \
  && ./configure CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/' LDFLAGS='-I/opt/vc/lib' \
