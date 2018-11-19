@@ -21,7 +21,7 @@ RUN cd gst-plugins-bad && ./autogen.sh --disable-gtk-doc \
 --disable-x11 --disable-wayland --enable-dispmanx \
 --with-gles2-module-name=/opt/vc/lib/libGLESv2.so \
 --with-egl-module-name=/opt/vc/lib/libEGL.so \
---enable-webrtc --disable-tests
+--enable-webrtc --disable-examples
 RUN cd gst-plugins-bad && make CFLAGS+='-Wno-error -Wno-redundant-decls' LDFLAGS+='-L/opt/vc/lib' -j4 && sudo make install
 
 # ....
