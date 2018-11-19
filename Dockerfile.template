@@ -4,18 +4,8 @@ MAINTAINER ajlennon@dynamicdevices.co.uk
 
 ENV INITSYSTEM on
 
-#!/bin/bash
-set -e
-
-# Create a log file of the build as well as displaying the build on the tty as it runs
-exec > >(tee build_gstreamer.log)
-exec 2>&1
-
-# Update and Upgrade the Pi, otherwise the build may fail due to inconsistencies
-sudo apt-get update && sudo apt-get upgrade -y --force-yes
-
 # Get the required libraries
-sudo apt-get install -y --force-yes build-essential autotools-dev automake autoconf \
+RUN sudo apt-get install -y --force-yes build-essential autotools-dev automake autoconf \
                                     libtool autopoint libxml2-dev zlib1g-dev libglib2.0-dev \
                                     pkg-config bison flex python3 git gtk-doc-tools libasound2-dev \
                                     libgudev-1.0-dev libxt-dev libvorbis-dev libcdparanoia-dev \
@@ -39,60 +29,21 @@ sudo apt-get install -y --force-yes build-essential autotools-dev automake autoc
                                     libnice-dev \
                                     gettext
 
-# get the repos if they're not already there
-cd $HOME
-[ ! -d src ] && mkdir src
-cd src
-[ ! -d gstreamer ] && mkdir gstreamer
-cd gstreamer
-
-#get repos if they are not there yet
-[ ! -d gstreamer ] && git clone git://anongit.freedesktop.org/git/gstreamer/gstreamer
-[ ! -d gst-plugins-base ] && git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-base
-[ ! -d gst-plugins-good ] && git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-good
-[ ! -d gst-plugins-bad ] && git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad
-[ ! -d gst-plugins-ugly ] && git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-ugly
-[ ! -d gst-omx ] && git clone git://anongit.freedesktop.org/git/gstreamer/gst-omx
-
-#export LD_LIBRARY_PATH=/usr/local/lib/
-cd gstreamer
-./autogen.sh --disable-gtk-doc
-make -j4
-sudo make install
-cd ..
-
-cd gst-plugins-base
-./autogen.sh --disable-gtk-doc
-make -j4
-sudo make install
-cd ..
-
-cd gst-plugins-good
-./autogen.sh --disable-gtk-doc
-make -j4
-sudo make install
-cd ..
-
-cd gst-plugins-ugly
-./autogen.sh --disable-gtk-doc
-make -j4
-sudo make install
-cd ..
-
-cd gst-plugins-bad
+RUN git clone git://anongit.freedesktop.org/git/gstreamer/gst-plugins-bad
+RUN cd gst-plugins-bad
 # some extra flags on rpi
-./autogen.sh --disable-gtk-doc
-export CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/'
-export LDFLAGS='-L/opt/vc/lib'
-./configure CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/' LDFLAGS='-I/opt/vc/lib' \
+RUN ./autogen.sh --disable-gtk-doc
+RUN export CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/'
+RUN export LDFLAGS='-L/opt/vc/lib'
+RUN ./configure CFLAGS='-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux/' LDFLAGS='-I/opt/vc/lib' \
 --disable-gtk-doc --disable-opengl --enable-gles2 --enable-egl --disable-glx \
 --disable-x11 --disable-wayland --enable-dispmanx \
 --with-gles2-module-name=/opt/vc/lib/libGLESv2.so \
 --with-egl-module-name=/opt/vc/lib/libEGL.so \
 --enable-webrtc
-make CFLAGS+='-Wno-error -Wno-redundant-decls' LDFLAGS+='-L/opt/vc/lib' -j4
-sudo make install
-cd ..
+RUN make CFLAGS+='-Wno-error -Wno-redundant-decls' LDFLAGS+='-L/opt/vc/lib' -j4
+RUN sudo make install
+RUN cd ..
 
 # omx support
 cd gst-omx
