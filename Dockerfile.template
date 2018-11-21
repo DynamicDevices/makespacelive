@@ -1,5 +1,5 @@
 # New build
-FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch-stable
+FROM dynamicdevices/%%RESIN_MACHINE_NAME%%-debian-makespacelive:stretch
 MAINTAINER ajlennon@dynamicdevices.co.uk
 
 ENV INITSYSTEM on
